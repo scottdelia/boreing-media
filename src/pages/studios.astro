@@ -1,0 +1,115 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHero from '../components/PageHero.astro';
+import SectionHeading from '../components/SectionHeading.astro';
+import PosterCard from '../components/PosterCard.astro';
+import TitleModal from '../components/TitleModal.astro';
+import CTA from '../components/CTA.astro';
+import { titles } from '../data/titles';
+
+const credits = [...titles].sort((a, b) => b.year - a.year);
+
+const development = [
+  { kind: 'Feature', title: 'Untitled Western', note: 'Placeholder slot. In development.' },
+  { kind: 'Docuseries', title: 'Untitled Documentary Series', note: 'Placeholder slot. In development.' },
+  { kind: 'Kids', title: 'Untitled Family Series', note: 'Placeholder slot. In development.' },
+];
+
+const lookingFor = [
+  { title: 'Stories with a spine', text: 'Westerns, thrillers, comedies, and family stories that know what they believe.' },
+  { title: 'Documentaries that matter', text: 'Subjects other studios will not touch, told with craft instead of outrage.' },
+  { title: 'Programming for families', text: 'Kids content parents can leave on without checking the room.' },
+  { title: 'Partners, not vendors', text: 'Co-financing, distribution, and licensing arrangements that share the upside.' },
+];
+---
+
+<BaseLayout
+  title="Studios"
+  description="Boreing Media Studios: film and television from the producer behind The Pendragon Cycle, Am I Racist?, and Lady Ballers."
+>
+  <PageHero
+    eyebrow="Studios"
+    title="Stories with real production values."
+    lead="Features, documentaries, series, and kids programming from the producer who built an entertainment studio inside a news company."
+    palette="poster-steel"
+  >
+    <a href="#credits" class="btn btn-primary">See the credits</a>
+    <a href="#pitch" class="btn btn-outline">Pitch the studio</a>
+  </PageHero>
+
+  <section id="credits" class="container-x py-16 sm:py-24">
+    <SectionHeading
+      eyebrow="Selected credits"
+      title="A decade of work."
+      lead="Selected film and television credits of founder Jeremy Boreing, produced during his tenure at The Daily Wire. Shown as a portfolio."
+    />
+    <div class="mt-12 grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-5" data-reveal>
+      {
+        credits.map((t) => (
+          <div class="[&>button]:w-full [&>button]:sm:w-full">
+            <PosterCard title={t} />
+          </div>
+        ))
+      }
+    </div>
+  </section>
+
+  <section class="border-t border-border/60 bg-surface/30 py-20 sm:py-28">
+    <div class="container-x">
+      <SectionHeading
+        eyebrow="In development"
+        title="What comes next."
+        lead="Slate placeholders for the concept. Real projects replace these cards as they are announced."
+      />
+      <div class="mt-12 grid gap-5 md:grid-cols-3">
+        {
+          development.map((d, i) => (
+            <div class="card grain relative overflow-hidden p-7" data-reveal style={`--reveal-delay: ${i * 80}ms`}>
+              <div class="flex items-center justify-between">
+                <p class="eyebrow">{d.kind}</p>
+                <span class="rounded-full border border-border px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-muted">
+                  Concept
+                </span>
+              </div>
+              <h3 class="mt-4 text-2xl font-medium tracking-tight">{d.title}</h3>
+              <p class="mt-3 text-sm text-muted">{d.note}</p>
+              <div class="mt-8 h-1 w-16 rounded-full bg-gold/60" />
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <section id="pitch" class="container-x py-20 sm:py-28">
+    <div class="grid gap-12 lg:grid-cols-12">
+      <div class="lg:col-span-5">
+        <SectionHeading
+          eyebrow="Submissions"
+          title="What we look for."
+          lead="The studio takes a small number of projects a year. Here is the filter."
+        />
+      </div>
+      <ul class="grid gap-4 sm:grid-cols-2 lg:col-span-7">
+        {
+          lookingFor.map((item, i) => (
+            <li class="card p-6" data-reveal style={`--reveal-delay: ${i * 70}ms`}>
+              <h3 class="font-sans text-base font-semibold">{item.title}</h3>
+              <p class="mt-2 text-sm leading-relaxed text-muted">{item.text}</p>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </section>
+
+  <CTA
+    eyebrow="Pitch"
+    title="Have a project?"
+    text="Send a logline and a paragraph. If it fits, we will ask for more."
+    primary={{ label: 'Contact the studio', href: '/contact' }}
+    secondary={{ label: 'Browse the catalog', href: '/watch' }}
+  />
+
+  <TitleModal />
+</BaseLayout>

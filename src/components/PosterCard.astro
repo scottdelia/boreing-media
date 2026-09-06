@@ -1,0 +1,29 @@
+---
+import type { Title } from '../data/titles';
+
+interface Props {
+  title: Title;
+  wide?: boolean;
+}
+const { title: t, wide = false } = Astro.props;
+const shape = wide ? 'aspect-video w-72 sm:w-80' : 'aspect-[2/3] w-40 sm:w-48';
+---
+
+<button
+  type="button"
+  data-title={JSON.stringify(t)}
+  class={`group relative shrink-0 snap-start overflow-hidden rounded-lg text-left transition-transform duration-300 ease-out-expo hover:z-10 hover:scale-105 focus-visible:z-10 focus-visible:scale-105 ${shape} ${t.palette}`}
+  aria-label={`${t.title} (${t.year}). More info`}
+>
+  <span class="grain absolute inset-0"></span>
+  <span class="absolute inset-0 bg-linear-to-t from-black/85 via-black/20 to-transparent"></span>
+  <span
+    class="absolute left-3 top-3 rounded-full bg-black/40 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-ink/90 backdrop-blur"
+  >
+    {t.kind}
+  </span>
+  <span class="absolute inset-x-3 bottom-3">
+    <span class="block font-display text-lg leading-tight text-ink">{t.title}</span>
+    <span class="mt-1 block text-xs text-ink/70">{t.year} &middot; {t.meta}</span>
+  </span>
+</button>

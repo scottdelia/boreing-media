@@ -1,0 +1,30 @@
+---
+import { platforms } from '../data/nav';
+
+interface Props {
+  size?: 'sm' | 'md';
+  class?: string;
+}
+const { size = 'md', class: className = '' } = Astro.props;
+const pad = size === 'sm' ? 'px-3 py-1.5 text-xs' : 'px-4 py-2.5 text-sm';
+---
+
+<ul class={`flex flex-wrap gap-2 ${className}`} aria-label="Listen on">
+  {
+    platforms.map((p) => (
+      <li>
+        <a
+          href={p.href}
+          target="_blank"
+          rel="noopener"
+          class={`inline-flex items-center gap-2 rounded-full border border-ink/20 font-medium text-ink transition-colors hover:border-gold hover:text-gold ${pad}`}
+        >
+          <svg class="size-3.5 fill-current" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M8 5.5v13l11-6.5z" />
+          </svg>
+          {p.name}
+        </a>
+      </li>
+    ))
+  }
+</ul>

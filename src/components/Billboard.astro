@@ -1,0 +1,40 @@
+---
+import type { Title } from '../data/titles';
+
+interface Props {
+  title: Title;
+}
+const { title: t } = Astro.props;
+const payload = JSON.stringify(t);
+---
+
+<section class={`relative overflow-hidden ${t.palette}`} aria-label="Featured title">
+  <div class="grain absolute inset-0"></div>
+  <div class="absolute inset-0 bg-linear-to-r from-bg via-bg/55 to-transparent"></div>
+  <div class="absolute inset-0 bg-linear-to-t from-bg via-transparent to-bg/50"></div>
+  <div class="absolute right-[-10%] top-[10%] size-[36rem] rounded-full bg-gold/10 blur-3xl"></div>
+
+  <div class="container-x relative flex min-h-[78vh] flex-col justify-end pb-14 pt-40 sm:pb-20">
+    <p class="eyebrow" data-reveal>Featured &middot; {t.kind}</p>
+    <h1 class="mt-4 max-w-3xl text-4xl font-medium tracking-tight sm:text-6xl lg:text-7xl" data-reveal style="--reveal-delay: 80ms">
+      {t.title}
+    </h1>
+    <p class="mt-3 font-display text-xl italic text-gold sm:text-2xl" data-reveal style="--reveal-delay: 140ms">{t.tagline}</p>
+    <p class="mt-4 max-w-xl leading-relaxed text-ink/85" data-reveal style="--reveal-delay: 200ms">{t.blurb}</p>
+    <div class="mt-8 flex flex-wrap gap-3" data-reveal style="--reveal-delay: 260ms">
+      <button type="button" data-title={payload} class="btn btn-light">
+        <svg class="size-4 fill-current" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5v13l11-6.5z" /></svg>
+        Play
+      </button>
+      <button type="button" data-title={payload} class="btn btn-outline">
+        <svg class="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
+          <circle cx="12" cy="12" r="9" /><path d="M12 11v5M12 8h.01" />
+        </svg>
+        More info
+      </button>
+    </div>
+    <p class="mt-6 text-xs text-muted" data-reveal style="--reveal-delay: 320ms">
+      {t.year} &middot; {t.meta} &middot; Jeremy Boreing, {t.credit}
+    </p>
+  </div>
+</section>

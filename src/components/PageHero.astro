@@ -1,0 +1,41 @@
+---
+interface Props {
+  eyebrow?: string;
+  title: string;
+  lead?: string;
+  palette?: string;
+}
+const { eyebrow, title, lead, palette = 'poster-ink' } = Astro.props;
+const hasActions = Astro.slots.has('default');
+---
+
+<section class={`relative overflow-hidden ${palette}`}>
+  <div class="grain absolute inset-0"></div>
+  <div class="absolute inset-0 bg-linear-to-b from-bg/30 via-bg/70 to-bg"></div>
+  <div class="absolute -right-32 top-10 size-[28rem] rounded-full bg-gold/10 blur-3xl"></div>
+
+  <div class="container-x relative pb-16 pt-36 sm:pb-24 sm:pt-44">
+    {eyebrow && <p class="eyebrow" data-reveal>{eyebrow}</p>}
+    <h1
+      class="mt-4 max-w-4xl text-4xl font-medium tracking-tight sm:text-6xl lg:text-7xl"
+      data-reveal
+      style="--reveal-delay: 80ms"
+    >
+      {title}
+    </h1>
+    {
+      lead && (
+        <p class="mt-6 max-w-2xl text-lg leading-relaxed text-muted sm:text-xl" data-reveal style="--reveal-delay: 160ms">
+          {lead}
+        </p>
+      )
+    }
+    {
+      hasActions && (
+        <div class="mt-8 flex flex-wrap gap-3" data-reveal style="--reveal-delay: 240ms">
+          <slot />
+        </div>
+      )
+    }
+  </div>
+</section>

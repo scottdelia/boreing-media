@@ -1,0 +1,84 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Billboard from '../components/Billboard.astro';
+import PosterRow from '../components/PosterRow.astro';
+import PosterCard from '../components/PosterCard.astro';
+import TitleModal from '../components/TitleModal.astro';
+import CTA from '../components/CTA.astro';
+import type { Title } from '../data/titles';
+import { featuredTitle, byKind } from '../data/titles';
+import { episodes } from '../data/episodes';
+
+// Recent episodes become catalog entries so they open in the same detail modal.
+const episodeTitles: Title[] = episodes.slice(0, 6).map((e) => ({
+  id: `ep-${e.number}`,
+  title: e.title,
+  year: 2026,
+  kind: 'Episode',
+  tagline: `Episode ${e.number} · ${e.format === 'LIVE' ? 'Wednesday Live' : 'Interview'}`,
+  blurb: `From The Jeremy Boreing Show. Available now on YouTube, Spotify, Apple Podcasts, and Rumble.`,
+  meta: e.duration,
+  credit: 'Host',
+  palette: e.palette,
+}));
+
+const rows: { id: string; title: string; subtitle?: string; items: Title[]; wide?: boolean }[] = [
+  { id: 'episodes', title: 'Latest from The Jeremy Boreing Show', subtitle: 'New episodes every week', items: episodeTitles, wide: true },
+  { id: 'series', title: 'Series', subtitle: 'Scripted and unscripted', items: byKind('Series') },
+  { id: 'films', title: 'Films', subtitle: 'Feature films', items: byKind('Film') },
+  { id: 'docs', title: 'Documentaries', subtitle: 'The ones people argued about', items: byKind('Documentary') },
+  { id: 'kids', title: 'Kids', subtitle: 'Made for families', items: byKind('Kids') },
+];
+---
+
+<BaseLayout
+  title="Watch"
+  description="Browse the Boreing Media concept catalog: The Jeremy Boreing Show, films, series, documentaries, and kids programming."
+>
+  <Billboard title={featuredTitle} />
+
+  <div class="relative -mt-6 pb-10">
+    {
+      rows.map((row, i) => (
+        <div data-reveal style={`--reveal-delay: ${Math.min(i, 3) * 60}ms`}>
+          <PosterRow id={row.id} title={row.title} subtitle={row.subtitle}>
+            {row.items.map((t) => (
+              <PosterCard title={t} wide={row.wide} />
+            ))}
+          </PosterRow>
+        </div>
+      ))
+    }
+  </div>
+
+  <section class="container-x pb-8">
+    <div class="card grid gap-8 p-8 md:grid-cols-3 md:p-10" data-reveal>
+      <div>
+        <p class="eyebrow">Concept</p>
+        <h2 class="mt-3 text-2xl font-medium tracking-tight">What this page shows</h2>
+      </div>
+      <div class="text-sm leading-relaxed text-muted md:col-span-2">
+        <p>
+          This is a concept for a Boreing Media viewing destination in the style of a streaming service. Rows pull from a
+          single data file, so adding a title is a one-line change. The featured billboard, poster art, and detail cards
+          are generated with CSS and typography. Real key art, trailers, and a video player drop in without changing the
+          layout.
+        </p>
+        <p class="mt-4">
+          Film and series titles are selected credits of Jeremy Boreing, produced during his time at The Daily Wire.
+          They appear here as a portfolio, not as Boreing Media property.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <CTA
+    eyebrow="Distribution"
+    title="Want to carry the show or license a title?"
+    text="Boreing Media partners with platforms and distributors on a case-by-case basis."
+    primary={{ label: 'Talk to us', href: '/contact' }}
+    secondary={{ label: 'See the studio slate', href: '/studios' }}
+  />
+
+  <TitleModal />
+</BaseLayout>

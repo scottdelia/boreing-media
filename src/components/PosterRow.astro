@@ -1,0 +1,69 @@
+---
+interface Props {
+  id: string;
+  title: string;
+  subtitle?: string;
+}
+const { id, title, subtitle } = Astro.props;
+---
+
+<section class="relative py-6" aria-labelledby={`${id}-heading`}>
+  <div class="container-x flex items-end justify-between gap-4">
+    <div>
+      <h2 id={`${id}-heading`} class="font-sans text-lg font-semibold sm:text-xl">{title}</h2>
+      {subtitle && <p class="mt-0.5 text-sm text-muted">{subtitle}</p>}
+    </div>
+    <div class="hidden gap-2 sm:flex">
+      <button
+        type="button"
+        data-scroll="-1"
+        class="grid size-9 place-items-center rounded-full border border-border text-muted transition-colors hover:border-gold hover:text-gold"
+        aria-label={`Scroll ${title} left`}
+      >
+        <svg class="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M15 18l-6-6 6-6" />
+        </svg>
+      </button>
+      <button
+        type="button"
+        data-scroll="1"
+        class="grid size-9 place-items-center rounded-full border border-border text-muted transition-colors hover:border-gold hover:text-gold"
+        aria-label={`Scroll ${title} right`}
+      >
+        <svg class="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M9 6l6 6-6 6" />
+        </svg>
+      </button>
+    </div>
+  </div>
+
+  <div data-track class="row-track no-scrollbar mt-4 flex snap-x gap-3 overflow-x-auto pb-4 pt-2">
+    <slot />
+  </div>
+</section>
+
+<style>
+  /* Align the first card with the page container on wide screens; go full-bleed on small ones. */
+  .row-track {
+    padding-inline: max(1.25rem, calc((100% - 80rem) / 2 + 1.25rem));
+    scroll-padding-inline: max(1.25rem, calc((100% - 80rem) / 2 + 1.25rem));
+  }
+  @media (min-width: 640px) {
+    .row-track {
+      padding-inline: max(2rem, calc((100% - 80rem) / 2 + 2rem));
+      scroll-padding-inline: max(2rem, calc((100% - 80rem) / 2 + 2rem));
+    }
+  }
+</style>
+
+<script>
+  document.querySelectorAll<HTMLElement>('[data-track]').forEach((track) => {
+    const section = track.closest('section');
+    section?.querySelectorAll<HTMLButtonElement>('[data-scroll]').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const dir = Number(btn.dataset.scroll || 1);
+        track.scrollBy({ left: dir * track.clientWidth * 0.8, behavior: 'smooth' });
+      });
+    });
+  });
+</script>

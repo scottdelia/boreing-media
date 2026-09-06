@@ -1,0 +1,87 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHero from '../components/PageHero.astro';
+import SectionHeading from '../components/SectionHeading.astro';
+import CTA from '../components/CTA.astro';
+import { brands } from '../data/brands';
+---
+
+<BaseLayout
+  title="Brands"
+  description="Jeremy's Razors and Jeremy's Chocolates: the consumer brands of Boreing Media, acquired from The Daily Wire in July 2026."
+>
+  <PageHero
+    eyebrow="Brands"
+    title="Built because someone said no."
+    lead="In 2022 a razor company walked away from a sponsorship. Jeremy built a better one. Four years and $55 million later, the brands are back home."
+    palette="poster-ember"
+  >
+    {brands.map((b) => <a href={b.href} target="_blank" rel="noopener" class="btn btn-outline">Shop {b.name}</a>)}
+  </PageHero>
+
+  {
+    brands.map((b, i) => (
+      <section
+        id={b.id}
+        class={`py-20 sm:py-28 ${i % 2 === 1 ? 'border-t border-border/60 bg-surface/30' : ''}`}
+        aria-labelledby={`${b.id}-heading`}
+      >
+        <div class="container-x grid gap-12 lg:grid-cols-12 lg:items-center">
+          <div class={`lg:col-span-6 ${i % 2 === 1 ? 'lg:order-2' : ''}`}>
+            <div class={`${b.palette} grain relative aspect-[4/3] overflow-hidden rounded-2xl`} data-reveal>
+              <div class="absolute inset-0 bg-linear-to-t from-bg/85 via-bg/10 to-transparent" />
+              <div class="absolute left-8 top-8 rounded-full border border-ink/20 bg-black/30 px-3 py-1 text-xs font-semibold uppercase tracking-wider backdrop-blur">
+                {b.category}
+              </div>
+              <div class="absolute inset-x-8 bottom-8">
+                <p class="font-display text-4xl leading-none sm:text-5xl">{b.name}</p>
+                <p class="mt-2 text-sm text-ink/80">Est. {b.founded}</p>
+              </div>
+            </div>
+          </div>
+          <div class={`lg:col-span-6 ${i % 2 === 1 ? 'lg:order-1' : ''}`}>
+            <SectionHeading eyebrow={b.category} title={b.name} lead={b.intro} />
+            <p class="mt-6 max-w-xl leading-relaxed text-ink/85" data-reveal>
+              {b.story}
+            </p>
+            <dl class="mt-8 grid grid-cols-3 gap-4" data-reveal>
+              {b.stats.map((s) => (
+                <div class="card p-4">
+                  <dd class="font-display text-2xl text-gold">{s.value}</dd>
+                  <dt class="mt-1 text-xs text-muted">{s.label}</dt>
+                </div>
+              ))}
+            </dl>
+            <ul class="mt-8 grid gap-3 sm:grid-cols-2" data-reveal>
+              {b.products.map((p) => (
+                <li class="flex items-start gap-3 rounded-xl border border-border/70 p-4">
+                  <span class="mt-1 size-1.5 shrink-0 rounded-full bg-gold" aria-hidden="true" />
+                  <span>
+                    <span class="block text-sm font-semibold">{p.name}</span>
+                    <span class="block text-xs text-muted">{p.note}</span>
+                  </span>
+                </li>
+              ))}
+            </ul>
+            <div class="mt-8" data-reveal>
+              <a href={b.href} target="_blank" rel="noopener" class="btn btn-primary">
+                Shop {b.name}
+                <svg class="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path d="M7 17L17 7M9 7h8v8" />
+                </svg>
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+    ))
+  }
+
+  <CTA
+    eyebrow="Wholesale & partnerships"
+    title="Put the brands on your shelf."
+    text="Retail, co-branded products, and bundles. Tell us what you have in mind."
+    primary={{ label: 'Partner with us', href: '/advertise' }}
+    secondary={{ label: 'Contact', href: '/contact' }}
+  />
+</BaseLayout>

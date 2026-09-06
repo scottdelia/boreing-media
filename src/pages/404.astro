@@ -1,0 +1,21 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { withBase } from '../lib/url';
+---
+
+<BaseLayout title="Page not found" description="The page you are looking for does not exist.">
+  <section class="relative flex min-h-dvh items-center overflow-hidden">
+    <div class="poster-ink absolute inset-0"></div>
+    <div class="grain absolute inset-0"></div>
+    <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(201,162,39,0.14),transparent_60%)]"></div>
+    <div class="container-x relative py-32 text-center">
+      <p class="eyebrow">404</p>
+      <h1 class="mt-4 text-5xl font-medium tracking-tight sm:text-7xl">Nothing to see here.</h1>
+      <p class="mx-auto mt-5 max-w-md text-lg text-muted">The page moved, never existed, or is still in development.</p>
+      <div class="mt-8 flex flex-wrap justify-center gap-3">
+        <a href={withBase('/')} class="btn btn-primary">Back to home</a>
+        <a href={withBase('/watch')} class="btn btn-outline">Browse the catalog</a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

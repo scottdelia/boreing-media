@@ -1,0 +1,18 @@
+---
+import { withBase } from '../lib/url';
+
+interface Props {
+  class?: string;
+}
+const { class: className = '' } = Astro.props;
+---
+
+<a href={withBase('/')} class={`group inline-flex items-center gap-3 ${className}`} aria-label="Boreing Media home">
+  <span
+    class="grid size-9 place-items-center border border-gold/70 font-display text-lg font-semibold leading-none text-gold transition-colors duration-200 group-hover:bg-gold group-hover:text-bg"
+    aria-hidden="true">B</span
+  >
+  <span class="font-display text-[1.35rem] font-medium leading-none tracking-tight text-ink">
+    Boreing<span class="text-muted"> Media</span>
+  </span>
+</a>

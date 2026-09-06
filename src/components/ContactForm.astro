@@ -1,0 +1,50 @@
+---
+interface Props {
+  types?: string[];
+  submitLabel?: string;
+  note?: string;
+}
+const {
+  types = ['General', 'Press', 'Partnerships', 'Studios'],
+  submitLabel = 'Send message',
+  note = 'Thanks. This is a concept form and does not send yet. In production it connects to a form service or CRM.',
+} = Astro.props;
+---
+
+<form data-concept-form class="card p-6 sm:p-8" action="#" method="post" novalidate>
+  <div class="grid gap-5 sm:grid-cols-2">
+    <div>
+      <label for="name" class="mb-2 block text-sm font-medium">Name</label>
+      <input id="name" name="name" type="text" autocomplete="name" class="field" placeholder="Your name" required />
+    </div>
+    <div>
+      <label for="email" class="mb-2 block text-sm font-medium">Email</label>
+      <input id="email" name="email" type="email" autocomplete="email" class="field" placeholder="you@company.com" required />
+    </div>
+    <div class="sm:col-span-2">
+      <label for="type" class="mb-2 block text-sm font-medium">What is this about?</label>
+      <select id="type" name="type" class="field">
+        {types.map((t) => <option value={t}>{t}</option>)}
+      </select>
+    </div>
+    <div class="sm:col-span-2">
+      <label for="message" class="mb-2 block text-sm font-medium">Message</label>
+      <textarea id="message" name="message" rows="5" class="field" placeholder="Tell us a little about the project or request."></textarea>
+    </div>
+  </div>
+  <div class="mt-6 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+    <button type="submit" class="btn btn-primary">{submitLabel}</button>
+    <p class="text-xs text-muted">We read everything. Replies within a few business days.</p>
+  </div>
+  <p data-form-note hidden class="mt-5 rounded-xl border border-gold/40 bg-gold/10 p-4 text-sm" role="status">{note}</p>
+</form>
+
+<script>
+  document.querySelectorAll<HTMLFormElement>('[data-concept-form]').forEach((form) => {
+    form.addEventListener('submit', (event) => {
+      event.preventDefault();
+      const note = form.querySelector<HTMLElement>('[data-form-note]');
+      if (note) note.hidden = false;
+    });
+  });
+</script>

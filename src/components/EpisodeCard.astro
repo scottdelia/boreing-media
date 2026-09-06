@@ -1,0 +1,48 @@
+---
+import type { Episode } from '../data/episodes';
+import { formatDate } from '../data/episodes';
+import { platforms } from '../data/nav';
+
+interface Props {
+  episode: Episode;
+}
+const { episode } = Astro.props;
+const listenHref = platforms.find((p) => p.name === 'Apple Podcasts')?.href ?? '#';
+const isLive = episode.format === 'LIVE';
+---
+
+<article class="card card-hover group flex gap-4 p-4 sm:p-5">
+  <div
+    class={`relative grid size-20 shrink-0 place-items-center overflow-hidden rounded-xl ${episode.palette} font-display text-2xl text-ink`}
+    aria-hidden="true"
+  >
+    <span class="grain absolute inset-0"></span>
+    <span class="relative">{episode.number}</span>
+  </div>
+  <div class="min-w-0 flex-1">
+    <div class="flex flex-wrap items-center gap-x-2 gap-y-1 text-xs text-muted">
+      <span
+        class={`rounded-full px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wider ${isLive ? 'bg-red-500/15 text-red-300' : 'bg-gold/15 text-gold'}`}
+      >
+        {isLive ? 'Weds Live' : 'Interview'}
+      </span>
+      <time datetime={episode.date}>{formatDate(episode.date)}</time>
+      <span aria-hidden="true">&middot;</span>
+      <span>{episode.duration}</span>
+    </div>
+    <h3 class="mt-2 font-sans text-base font-semibold leading-snug text-ink transition-colors group-hover:text-gold">
+      <span class="text-muted">Ep. {episode.number}:</span> {episode.title}
+    </h3>
+    <a
+      href={listenHref}
+      target="_blank"
+      rel="noopener"
+      class="mt-3 inline-flex items-center gap-1.5 text-sm font-medium text-gold"
+    >
+      Listen
+      <svg class="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M7 17L17 7M9 7h8v8" />
+      </svg>
+    </a>
+  </div>
+</article>

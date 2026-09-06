@@ -1,0 +1,120 @@
+---
+import { primaryNav } from '../data/nav';
+import { withBase, isActive } from '../lib/url';
+import Logo from './Logo.astro';
+
+const path = Astro.url.pathname;
+---
+
+<header data-header class="fixed inset-x-0 top-0 z-50 border-b border-transparent">
+  <div class="container-x flex h-16 items-center justify-between sm:h-20">
+    <Logo />
+
+    <nav aria-label="Primary" class="hidden items-center gap-1 lg:flex">
+      {
+        primaryNav.map((link) => (
+          <a
+            href={withBase(link.href)}
+            aria-current={isActive(path, link.href) ? 'page' : undefined}
+            class="rounded-full px-3.5 py-2 text-sm font-medium text-ink/80 transition-colors hover:text-gold aria-[current=page]:text-gold"
+          >
+            {link.label}
+          </a>
+        ))
+      }
+    </nav>
+
+    <div class="hidden items-center gap-2 lg:flex">
+      <a href={withBase('/advertise')} class="btn btn-ghost">Partner</a>
+      <a href={withBase('/contact')} class="btn btn-outline">Contact</a>
+    </div>
+
+    <button
+      type="button"
+      data-menu-toggle
+      class="grid size-10 place-items-center rounded-full text-ink hover:text-gold lg:hidden"
+      aria-expanded="false"
+      aria-controls="mobile-menu"
+      aria-label="Open menu"
+    >
+      <svg data-icon-open class="size-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" aria-hidden="true">
+        <path d="M4 7h16M4 12h16M4 17h16" />
+      </svg>
+      <svg data-icon-close class="size-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" aria-hidden="true" hidden>
+        <path d="M6 6l12 12M18 6L6 18" />
+      </svg>
+    </button>
+  </div>
+
+  <div id="mobile-menu" hidden class="border-t border-border lg:hidden">
+    <nav aria-label="Mobile" class="container-x flex flex-col py-4">
+      {
+        primaryNav.map((link) => (
+          <a
+            href={withBase(link.href)}
+            aria-current={isActive(path, link.href) ? 'page' : undefined}
+            class="border-b border-border/60 py-4 font-display text-2xl text-ink aria-[current=page]:text-gold"
+          >
+            {link.label}
+          </a>
+        ))
+      }
+      <div class="flex gap-3 py-5">
+        <a href={withBase('/advertise')} class="btn btn-outline flex-1">Partner</a>
+        <a href={withBase('/contact')} class="btn btn-primary flex-1">Contact</a>
+      </div>
+    </nav>
+  </div>
+</header>
+
+<style>
+  header {
+    transition:
+      background-color 300ms,
+      border-color 300ms,
+      backdrop-filter 300ms;
+  }
+  header.is-solid {
+    background-color: color-mix(in oklab, var(--color-bg) 86%, transparent);
+    border-color: var(--color-border);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+  }
+  #mobile-menu {
+    background-color: color-mix(in oklab, var(--color-bg) 96%, transparent);
+  }
+</style>
+
+<script>
+  const header = document.querySelector<HTMLElement>('[data-header]');
+  const toggle = document.querySelector<HTMLButtonElement>('[data-menu-toggle]');
+  const menu = document.getElementById('mobile-menu');
+  const iconOpen = document.querySelector<SVGElement>('[data-icon-open]');
+  const iconClose = document.querySelector<SVGElement>('[data-icon-close]');
+
+  function syncHeader() {
+    if (!header || !menu) return;
+    header.classList.toggle('is-solid', window.scrollY > 24 || !menu.hidden);
+  }
+
+  function setMenu(open: boolean) {
+    if (!menu || !toggle || !iconOpen || !iconClose) return;
+    menu.hidden = !open;
+    toggle.setAttribute('aria-expanded', String(open));
+    toggle.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+    iconOpen.hidden = open;
+    iconClose.hidden = !open;
+    document.body.classList.toggle('overflow-hidden', open);
+    syncHeader();
+  }
+
+  toggle?.addEventListener('click', () => setMenu(menu?.hidden ?? true));
+  window.addEventListener('scroll', syncHeader, { passive: true });
+  window.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && menu && !menu.hidden) setMenu(false);
+  });
+  window.matchMedia('(min-width: 1024px)').addEventListener('change', (e) => {
+    if (e.matches) setMenu(false);
+  });
+  syncHeader();
+</script>

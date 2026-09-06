@@ -1,0 +1,112 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHero from '../components/PageHero.astro';
+import SectionHeading from '../components/SectionHeading.astro';
+import ContactForm from '../components/ContactForm.astro';
+
+const reasons = [
+  { value: 'Weekly', label: 'Multi-hour episodes with a loyal, returning audience' },
+  { value: '4', label: 'Platforms: YouTube, Spotify, Apple Podcasts, Rumble' },
+  { value: '$55M+', label: "Proof the audience buys: Jeremy's Razors lifetime sales" },
+];
+
+const formats = [
+  {
+    eyebrow: 'The Show',
+    title: 'Sponsorship',
+    palette: 'poster-wine',
+    points: ['Host-read pre-roll and mid-roll', 'Live integrations on the Wednesday show', 'Category exclusivity by quarter', 'Cross-platform delivery reporting'],
+  },
+  {
+    eyebrow: 'Brands',
+    title: 'Brand partnerships',
+    palette: 'poster-ember',
+    points: ['Co-branded products and limited runs', 'Bundles with Jeremy\'s Razors and Chocolates', 'Retail and wholesale placement', 'Audience-first launches on the show'],
+  },
+  {
+    eyebrow: 'Studios',
+    title: 'Co-productions',
+    palette: 'poster-steel',
+    points: ['Co-financing on features and series', 'Distribution and licensing', 'Brand integration in scripted work', 'First-look arrangements'],
+  },
+];
+---
+
+<BaseLayout
+  title="Advertise & Partner"
+  description="Sponsor The Jeremy Boreing Show, partner with Jeremy's Razors and Chocolates, or co-produce with Boreing Media Studios."
+>
+  <PageHero
+    eyebrow="Advertise & Partner"
+    title="Reach an audience that shows up."
+    lead="Boreing Media works with a small number of partners across the show, the brands, and the studio. Fewer logos, deeper integration, real results."
+    palette="poster-gold"
+  >
+    <a href="#media-kit" class="btn btn-primary">Request the media kit</a>
+    <a href="#formats" class="btn btn-outline">Ways to work together</a>
+  </PageHero>
+
+  <section class="container-x -mt-4 pb-16 sm:pb-20">
+    <dl class="grid gap-5 sm:grid-cols-3">
+      {
+        reasons.map((r, i) => (
+          <div class="card p-6" data-reveal style={`--reveal-delay: ${i * 80}ms`}>
+            <dd class="font-display text-3xl text-gold">{r.value}</dd>
+            <dt class="mt-2 text-sm leading-relaxed text-muted">{r.label}</dt>
+          </div>
+        ))
+      }
+    </dl>
+  </section>
+
+  <section id="formats" class="border-t border-border/60 bg-surface/30 py-20 sm:py-28">
+    <div class="container-x">
+      <SectionHeading eyebrow="Ways to work together" title="Three doors in." lead="Pick one or combine them." />
+      <div class="mt-12 grid gap-5 md:grid-cols-3">
+        {
+          formats.map((f, i) => (
+            <div class="card relative overflow-hidden p-7" data-reveal style={`--reveal-delay: ${i * 90}ms`}>
+              <div class={`absolute inset-x-0 top-0 h-1.5 ${f.palette}`} />
+              <p class="eyebrow">{f.eyebrow}</p>
+              <h3 class="mt-3 text-2xl font-medium tracking-tight">{f.title}</h3>
+              <ul class="mt-5 space-y-3">
+                {f.points.map((p) => (
+                  <li class="flex items-start gap-3 text-sm text-ink/85">
+                    <svg class="mt-0.5 size-4 shrink-0 text-gold" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                      <path d="M5 12l5 5L20 7" />
+                    </svg>
+                    {p}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <section id="media-kit" class="container-x py-20 sm:py-28">
+    <div class="grid gap-12 lg:grid-cols-12">
+      <div class="lg:col-span-5">
+        <SectionHeading
+          eyebrow="Media kit"
+          title="Get the numbers."
+          lead="Audience, demographics, rates, and case studies. Tell us what you are planning and we will send the kit that fits."
+        />
+        <ul class="mt-8 space-y-3 text-sm text-muted" data-reveal>
+          <li class="flex gap-3"><span class="text-gold" aria-hidden="true">01</span> Audience and platform breakdown</li>
+          <li class="flex gap-3"><span class="text-gold" aria-hidden="true">02</span> Sponsorship formats and rates</li>
+          <li class="flex gap-3"><span class="text-gold" aria-hidden="true">03</span> Brand partnership case studies</li>
+          <li class="flex gap-3"><span class="text-gold" aria-hidden="true">04</span> Studio slate and co-production terms</li>
+        </ul>
+      </div>
+      <div class="lg:col-span-7" data-reveal>
+        <ContactForm
+          types={['Show sponsorship', 'Brand partnership', 'Studio co-production', 'Something else']}
+          submitLabel="Request the media kit"
+        />
+      </div>
+    </div>
+  </section>
+</BaseLayout>

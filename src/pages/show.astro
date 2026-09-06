@@ -1,0 +1,101 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHero from '../components/PageHero.astro';
+import SectionHeading from '../components/SectionHeading.astro';
+import EpisodeCard from '../components/EpisodeCard.astro';
+import PlatformLinks from '../components/PlatformLinks.astro';
+import CTA from '../components/CTA.astro';
+import { episodes, showDescription } from '../data/episodes';
+
+const cadence = [
+  { value: 'Weekly', label: 'New episodes every week since March 24, 2026' },
+  { value: 'Interviews', label: 'Long-form sit-downs with builders, artists, and newsmakers' },
+  { value: 'Weds LIVE', label: 'A live, multi-hour show on the news of the week' },
+];
+
+const topics = ['Culture', 'Politics', 'Tech', 'Business', 'Faith', 'Film & TV'];
+---
+
+<BaseLayout title="The Jeremy Boreing Show" description={showDescription}>
+  <PageHero
+    eyebrow="The Jeremy Boreing Show"
+    title="The conversations everyone is thinking and nobody is saying out loud."
+    lead={showDescription}
+    palette="poster-wine"
+  >
+    <PlatformLinks />
+  </PageHero>
+
+  <section class="container-x -mt-4 pb-16 sm:pb-20">
+    <dl class="grid gap-5 sm:grid-cols-3">
+      {
+        cadence.map((c, i) => (
+          <div class="card p-6" data-reveal style={`--reveal-delay: ${i * 80}ms`}>
+            <dd class="font-display text-3xl text-gold">{c.value}</dd>
+            <dt class="mt-2 text-sm leading-relaxed text-muted">{c.label}</dt>
+          </div>
+        ))
+      }
+    </dl>
+  </section>
+
+  <section class="border-t border-border/60 bg-surface/30 py-20 sm:py-28">
+    <div class="container-x">
+      <div class="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
+        <SectionHeading eyebrow="Episodes" title="Latest episodes" lead="Eight most recent, newest first." />
+        <ul class="flex flex-wrap gap-2" aria-label="Topics" data-reveal>
+          {
+            topics.map((t) => (
+              <li class="rounded-full border border-border px-3 py-1.5 text-xs font-medium text-muted">{t}</li>
+            ))
+          }
+        </ul>
+      </div>
+      <div class="mt-12 grid gap-4 md:grid-cols-2">
+        {
+          episodes.map((e, i) => (
+            <div data-reveal style={`--reveal-delay: ${(i % 2) * 80}ms`}>
+              <EpisodeCard episode={e} />
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <section class="container-x py-20 sm:py-28">
+    <div class="grid gap-12 lg:grid-cols-12 lg:items-center">
+      <div class="lg:col-span-6">
+        <SectionHeading
+          eyebrow="About the show"
+          title="Not a monologue. A table."
+          lead="Jeremy spent a decade behind the camera building one of the largest media companies on the right. Now he sits down with the artists, founders, pastors, and troublemakers he met along the way."
+        />
+        <blockquote class="mt-8 border-l-2 border-gold pl-6" data-reveal>
+          <p class="font-display text-2xl italic leading-snug text-ink">
+            &ldquo;The conversations that everyone is thinking but nobody is saying out loud.&rdquo;
+          </p>
+          <footer class="mt-3 text-sm text-muted">Jeremy Boreing, on the show&rsquo;s premise</footer>
+        </blockquote>
+      </div>
+      <div class="lg:col-span-6">
+        <div class="poster-wine grain relative aspect-[4/3] overflow-hidden rounded-2xl" data-reveal>
+          <div class="absolute inset-0 bg-linear-to-t from-bg/90 via-bg/20 to-transparent"></div>
+          <div class="absolute inset-x-8 bottom-8">
+            <p class="eyebrow">Now streaming</p>
+            <p class="mt-2 font-display text-4xl leading-none sm:text-5xl">Ep. {episodes[0].number}</p>
+            <p class="mt-3 max-w-sm text-sm text-ink/85">{episodes[0].title}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <CTA
+    eyebrow="Subscribe"
+    title="Never miss an episode."
+    text="Follow on your platform of choice. New conversations every week."
+    primary={{ label: 'Watch on YouTube', href: 'https://www.youtube.com/@jeremyboreing' }}
+    secondary={{ label: 'Sponsor the show', href: '/advertise' }}
+  />
+</BaseLayout>

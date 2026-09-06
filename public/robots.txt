@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://scottdelia.github.io/boreing-media/sitemap-index.xml

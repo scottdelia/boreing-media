@@ -1,0 +1,243 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import SectionHeading from '../components/SectionHeading.astro';
+import EpisodeCard from '../components/EpisodeCard.astro';
+import PosterCard from '../components/PosterCard.astro';
+import PosterRow from '../components/PosterRow.astro';
+import TitleModal from '../components/TitleModal.astro';
+import PlatformLinks from '../components/PlatformLinks.astro';
+import CTA from '../components/CTA.astro';
+import { withBase } from '../lib/url';
+import { episodes, showDescription } from '../data/episodes';
+import { titles } from '../data/titles';
+import { brands } from '../data/brands';
+import { pressOutlets } from '../data/press';
+
+const latest = episodes.slice(0, 3);
+
+const pillars = [
+  {
+    eyebrow: 'The Show',
+    title: 'The Jeremy Boreing Show',
+    text: 'Long-form conversations, twice a week, with the people building what comes next.',
+    href: '/show',
+    palette: 'poster-wine',
+  },
+  {
+    eyebrow: 'Studios',
+    title: 'Film & Television',
+    text: 'Features, documentaries, series, and kids programming with real production values.',
+    href: '/studios',
+    palette: 'poster-steel',
+  },
+  {
+    eyebrow: 'Brands',
+    title: "Jeremy's Razors & Chocolates",
+    text: 'Consumer brands built on one idea: if they will not make it for you, make it yourself.',
+    href: '/brands',
+    palette: 'poster-ember',
+  },
+];
+
+const heroStats = [
+  { value: '56+', label: 'Episodes since March 2026' },
+  { value: '$55M+', label: "Jeremy's Razors lifetime sales" },
+  { value: '4', label: 'Platforms: YouTube, Spotify, Apple, Rumble' },
+];
+---
+
+<BaseLayout
+  title="Boreing Media"
+  description="Boreing Media is the show, studio, and consumer brands of Jeremy Boreing, co-founder of The Daily Wire. Culture, politics, tech, business, and faith."
+>
+  <!-- Hero -->
+  <section class="relative flex min-h-dvh items-end overflow-hidden">
+    <div class="poster-ink absolute inset-0"></div>
+    <div class="grain absolute inset-0"></div>
+    <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,rgba(201,162,39,0.22),transparent_55%)]"></div>
+    <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_left,rgba(31,58,82,0.35),transparent_60%)]"></div>
+    <div class="absolute inset-0 bg-linear-to-t from-bg via-bg/40 to-transparent"></div>
+    <div
+      aria-hidden="true"
+      class="pointer-events-none absolute -right-6 top-20 select-none font-display text-[26vw] leading-none text-ink/[0.035]"
+    >
+      BM
+    </div>
+
+    <div class="container-x relative pb-20 pt-40 sm:pb-28">
+      <p class="eyebrow" data-reveal>Boreing Media &middot; Est. 2026</p>
+      <h1
+        class="mt-5 max-w-5xl text-5xl font-medium leading-[0.95] tracking-tight sm:text-7xl lg:text-8xl"
+        data-reveal
+        style="--reveal-delay: 80ms"
+      >
+        Stop complaining.<br />
+        <span class="italic text-gold">Start building.</span>
+      </h1>
+      <p class="mt-7 max-w-xl text-lg leading-relaxed text-muted sm:text-xl" data-reveal style="--reveal-delay: 160ms">
+        A show, a studio, and a set of brands from Jeremy Boreing, co-founder of The Daily Wire. Culture, politics,
+        tech, business, and faith. Made, not complained about.
+      </p>
+      <div class="mt-9 flex flex-wrap gap-3" data-reveal style="--reveal-delay: 240ms">
+        <a href={withBase('/show')} class="btn btn-primary">Watch the latest episode</a>
+        <a href={withBase('/watch')} class="btn btn-outline">Browse the catalog</a>
+      </div>
+
+      <dl class="mt-16 grid gap-6 border-t border-border/60 pt-8 sm:grid-cols-3" data-reveal style="--reveal-delay: 320ms">
+        {
+          heroStats.map((s) => (
+            <div>
+              <dd class="font-display text-3xl text-gold sm:text-4xl">{s.value}</dd>
+              <dt class="mt-1 text-sm text-muted">{s.label}</dt>
+            </div>
+          ))
+        }
+      </dl>
+    </div>
+  </section>
+
+  <!-- Press strip -->
+  <section class="border-y border-border/60 bg-surface/40" aria-label="Press coverage">
+    <div
+      class="container-x flex flex-wrap items-center justify-center gap-x-10 gap-y-3 py-5 text-[11px] font-semibold uppercase tracking-[0.22em] text-muted"
+    >
+      <span class="text-muted/60">As covered by</span>
+      {pressOutlets.map((o) => <span>{o}</span>)}
+    </div>
+  </section>
+
+  <!-- Pillars -->
+  <section class="container-x py-20 sm:py-28">
+    <SectionHeading
+      eyebrow="What we do"
+      title="Three businesses. One instinct."
+      lead="Every part of Boreing Media starts from the same place: if the institutions will not serve you, build your own."
+    />
+    <div class="mt-12 grid gap-5 md:grid-cols-3">
+      {
+        pillars.map((p, i) => (
+          <a
+            href={withBase(p.href)}
+            class="card card-hover group relative flex min-h-[22rem] flex-col justify-end overflow-hidden p-7"
+            data-reveal
+            style={`--reveal-delay: ${i * 90}ms`}
+          >
+            <div class={`absolute inset-0 ${p.palette} opacity-60 transition-opacity duration-500 group-hover:opacity-95`} />
+            <div class="grain absolute inset-0" />
+            <div class="absolute inset-0 bg-linear-to-t from-bg via-bg/55 to-transparent" />
+            <div class="relative">
+              <p class="eyebrow">{p.eyebrow}</p>
+              <h3 class="mt-3 text-3xl font-medium tracking-tight">{p.title}</h3>
+              <p class="mt-3 text-sm leading-relaxed text-muted">{p.text}</p>
+              <span class="mt-5 inline-flex items-center gap-1.5 text-sm font-medium text-gold">
+                Explore
+                <svg class="size-4 transition-transform group-hover:translate-x-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path d="M5 12h14M13 6l6 6-6 6" />
+                </svg>
+              </span>
+            </div>
+          </a>
+        ))
+      }
+    </div>
+  </section>
+
+  <!-- Featured show -->
+  <section class="border-t border-border/60 bg-surface/30 py-20 sm:py-28">
+    <div class="container-x grid gap-12 lg:grid-cols-12 lg:items-start">
+      <div class="lg:col-span-5">
+        <SectionHeading eyebrow="The Jeremy Boreing Show" title="New episodes every week." lead={showDescription} />
+        <div data-reveal>
+          <PlatformLinks class="mt-8" />
+          <a href={withBase('/show')} class="btn btn-outline mt-6">All episodes</a>
+        </div>
+      </div>
+      <div class="grid gap-4 lg:col-span-7">
+        {
+          latest.map((e, i) => (
+            <div data-reveal style={`--reveal-delay: ${i * 80}ms`}>
+              <EpisodeCard episode={e} />
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- Watch teaser -->
+  <section class="py-20 sm:py-28">
+    <div class="container-x">
+      <SectionHeading
+        eyebrow="Watch"
+        title="A catalog worth a subscription."
+        lead="Films, series, documentaries, and kids programming from the founder's slate. Browse the concept catalog."
+      />
+    </div>
+    <div class="mt-6" data-reveal>
+      <PosterRow id="home-catalog" title="From the slate" subtitle="Selected credits of Jeremy Boreing">
+        {titles.slice(0, 8).map((t) => <PosterCard title={t} />)}
+      </PosterRow>
+    </div>
+    <div class="container-x mt-2">
+      <a href={withBase('/watch')} class="btn btn-outline">Open the catalog</a>
+    </div>
+  </section>
+
+  <!-- Brands -->
+  <section class="border-t border-border/60 bg-surface/30 py-20 sm:py-28">
+    <div class="container-x">
+      <SectionHeading
+        eyebrow="Brands"
+        title="Products with a point of view."
+        lead="Two consumer brands that started as a dare and became a business."
+      />
+      <div class="mt-12 grid gap-5 md:grid-cols-2">
+        {
+          brands.map((b, i) => (
+            <a
+              href={b.href}
+              target="_blank"
+              rel="noopener"
+              class="card card-hover group relative overflow-hidden p-8"
+              data-reveal
+              style={`--reveal-delay: ${i * 90}ms`}
+            >
+              <div class={`absolute inset-0 ${b.palette} opacity-50`} />
+              <div class="grain absolute inset-0" />
+              <div class="absolute inset-0 bg-linear-to-t from-bg to-bg/30" />
+              <div class="relative">
+                <p class="eyebrow">{b.category}</p>
+                <h3 class="mt-3 text-3xl font-medium tracking-tight sm:text-4xl">{b.name}</h3>
+                <p class="mt-3 max-w-md text-muted">{b.intro}</p>
+                <div class="mt-6 flex gap-8">
+                  {b.stats.slice(0, 2).map((s) => (
+                    <div>
+                      <p class="font-display text-2xl text-gold">{s.value}</p>
+                      <p class="text-xs text-muted">{s.label}</p>
+                    </div>
+                  ))}
+                </div>
+                <span class="mt-6 inline-flex items-center gap-1.5 text-sm font-medium text-gold">
+                  Shop {b.name}
+                  <svg class="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <path d="M7 17L17 7M9 7h8v8" />
+                  </svg>
+                </span>
+              </div>
+            </a>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <CTA
+    eyebrow="Work with us"
+    title="Sponsor the show. Partner with the brands. Pitch the studio."
+    text="Boreing Media works with a small number of partners who want to reach an audience that actually shows up."
+    primary={{ label: 'Advertise & Partner', href: '/advertise' }}
+    secondary={{ label: 'Contact', href: '/contact' }}
+  />
+
+  <TitleModal />
+</BaseLayout>

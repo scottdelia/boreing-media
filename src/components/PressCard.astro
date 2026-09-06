@@ -1,0 +1,24 @@
+---
+import type { PressItem } from '../data/press';
+import { formatDate } from '../data/episodes';
+
+interface Props {
+  item: PressItem;
+}
+const { item } = Astro.props;
+---
+
+<a href={item.href} target="_blank" rel="noopener" class="card card-hover group flex flex-col p-6">
+  <div class="flex items-center justify-between gap-3 text-xs text-muted">
+    <span class="font-semibold uppercase tracking-wider text-ink/80">{item.outlet}</span>
+    <time datetime={item.date}>{formatDate(item.date)}</time>
+  </div>
+  <h3 class="mt-4 font-sans text-lg font-semibold leading-snug transition-colors group-hover:text-gold">{item.title}</h3>
+  <p class="mt-3 flex-1 text-sm leading-relaxed text-muted">{item.summary}</p>
+  <span class="mt-5 inline-flex items-center gap-1.5 text-sm font-medium text-gold">
+    Read at {item.outlet}
+    <svg class="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+      <path d="M7 17L17 7M9 7h8v8" />
+    </svg>
+  </span>
+</a>

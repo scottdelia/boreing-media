@@ -1,0 +1,57 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHero from '../components/PageHero.astro';
+import ContactForm from '../components/ContactForm.astro';
+import PlatformLinks from '../components/PlatformLinks.astro';
+import { withBase } from '../lib/url';
+
+const channels = [
+  { title: 'Press', text: 'Interview requests, background, and fact checks.', href: '/news' },
+  { title: 'Partnerships', text: 'Sponsorship, brand deals, and wholesale.', href: '/advertise' },
+  { title: 'Studios', text: 'Pitches, co-productions, and licensing.', href: '/studios' },
+];
+---
+
+<BaseLayout title="Contact" description="Get in touch with Boreing Media for press, partnerships, and studio inquiries.">
+  <PageHero eyebrow="Contact" title="Say hello." lead="One form for everything. Pick a topic and we will route it to the right person." palette="poster-ink" />
+
+  <section class="container-x -mt-4 pb-20 sm:pb-28">
+    <div class="grid gap-8 lg:grid-cols-12">
+      <div class="lg:col-span-7" data-reveal>
+        <ContactForm />
+      </div>
+      <aside class="space-y-4 lg:col-span-5">
+        {
+          channels.map((c, i) => (
+            <a
+              href={withBase(c.href)}
+              class="card card-hover group block p-6"
+              data-reveal
+              style={`--reveal-delay: ${i * 70}ms`}
+            >
+              <h2 class="font-sans text-base font-semibold transition-colors group-hover:text-gold">{c.title}</h2>
+              <p class="mt-1 text-sm text-muted">{c.text}</p>
+            </a>
+          ))
+        }
+        <div class="card p-6" data-reveal style="--reveal-delay: 240ms">
+          <p class="eyebrow">Follow the show</p>
+          <PlatformLinks size="sm" class="mt-4" />
+        </div>
+        <p class="px-1 text-xs leading-relaxed text-muted/70" data-reveal style="--reveal-delay: 300ms">
+          Concept note: direct email addresses and a mailing address are supplied by the company at launch.
+        </p>
+      </aside>
+    </div>
+  </section>
+
+  <script>
+    // Preselect the inquiry type from ?type= so links like /contact?type=Press land on the right option.
+    const type = new URLSearchParams(window.location.search).get('type');
+    const select = document.querySelector<HTMLSelectElement>('select#type');
+    if (type && select) {
+      const match = Array.from(select.options).find((o) => o.value.toLowerCase() === type.toLowerCase());
+      if (match) select.value = match.value;
+    }
+  </script>
+</BaseLayout>
