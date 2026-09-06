@@ -22,9 +22,9 @@ export const leadership: Leader[] = [
   },
   {
     name: 'Jon Lewis',
-    role: 'President',
+    role: 'Co-founder & President',
     initials: 'JL',
-    bio: 'Former President of The Daily Wire, where he worked alongside Boreing for years before following him to the new company. A Hillsdale College graduate based in Franklin, Tennessee. Runs day-to-day operations across the show, the studio slate, and the brands.',
+    bio: 'Co-founded Boreing Media with Jeremy after serving as President of The Daily Wire, where the two worked together for years. A Hillsdale College graduate based in Franklin, Tennessee. Runs day-to-day operations across the show, the studio slate, and the brands.',
     palette: 'poster-steel',
   },
   {

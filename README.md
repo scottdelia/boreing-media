@@ -76,3 +76,16 @@ No image files live in this repo. Everything is hotlinked from its source and sw
 - **Film and TV posters and stills** are hotlinked from [TMDB](https://www.themoviedb.org) (`poster`, `backdrop`, `tmdb` in `titles.ts`). This site uses TMDB images but is not endorsed or certified by TMDB. The artwork belongs to the studios that made the titles; replace it with approved key art before any official use.
 - **Brand imagery** for Jeremy's Razors is hotlinked from the brand's Shopify store (product renders and a lifestyle shot). Product names and prices come from the store's public catalog as of September 2026. Jeremy's Chocolates has no live storefront at the moment, so its imagery is the launch commercial's YouTube thumbnail.
 - **Leadership photo** of Jeremy Boreing: [Pittstone, CC BY-SA 4.0, via Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Jeremy_Boreing.jpg). The About hero is a behind-the-scenes still from the show's YouTube channel.
+
+## How this was built
+
+Two working sessions on September 5 and 6, 2026. Scott Delia directed the work: the decision to build a concept, the stack, the page list, the visual direction, the concept framing, and every call on imagery and licensing. Claude Code (Anthropic) did the heavy lifting under that direction: research from public reporting, the code, browser verification of every page at desktop and mobile widths, the GitHub Actions pipeline, and the fixes that followed each review.
+
+What that looked like in practice:
+
+- Research first, then build. Episode titles, press links, film credits, brand facts, and view counts all trace to public sources listed above.
+- Content lives in data files, not templates, so one edit updates every page.
+- Every image is hotlinked from its source, chosen by hand, and credited.
+- Each change was built, previewed, checked in a browser, committed, and deployed. Five deploys so far.
+
+One miss worth noting: the first research pass concluded Boreing Media had no website. It does. The site blocks search engines except for its press section, so the search never surfaced it. A direct check of the domain found it a day later.
