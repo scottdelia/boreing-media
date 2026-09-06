@@ -28,7 +28,7 @@ const isYouTube = (src: string) => src.includes('i.ytimg.com');
       <section id={b.id} class={`py-20 sm:py-28 ${i % 2 === 1 ? 'section-paper' : ''}`} aria-labelledby={`${b.id}-heading`}>
         <div class="container-x grid gap-12 lg:grid-cols-12 lg:items-center">
           <div class={`lg:col-span-6 ${i % 2 === 1 ? 'lg:order-2' : ''}`}>
-            <div class={`${b.palette} relative aspect-[4/3] overflow-hidden rounded-2xl`} data-reveal>
+            <div class={`${b.palette} relative aspect-[4/3] overflow-hidden rounded-2xl`}>
               <img
                 src={b.hero}
                 alt={`${b.name} product photography`}
@@ -39,7 +39,7 @@ const isYouTube = (src: string) => src.includes('i.ytimg.com');
                 onerror={isYouTube(b.hero) ? youtubeThumbFallback : undefined}
               />
               <div class="absolute inset-0 bg-linear-to-t from-black/75 via-black/10 to-transparent" />
-              <div class="absolute left-6 top-6 rounded-full border border-white/20 bg-black/40 px-3 py-1 text-xs font-semibold uppercase tracking-wider text-white backdrop-blur">
+              <div class="absolute left-6 top-6 rounded-full border border-white/20 bg-black/55 px-3 py-1 text-xs font-semibold uppercase tracking-wider text-white">
                 {b.category}
               </div>
               <div class="absolute inset-x-6 bottom-6">

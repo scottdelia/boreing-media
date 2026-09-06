@@ -6,13 +6,13 @@ interface Props {
   palette?: string;
   /** Optional 16:9 still shown behind the gradients. */
   image?: string;
-  /** Soften the image into atmosphere. Use for thumbnails that carry their own text. */
+  /** Soften the image into atmosphere. Pair with a low-resolution source; the CSS blur stays small and cheap. */
   imageBlur?: boolean;
 }
 const { eyebrow, title, lead, palette = 'poster-ink', image, imageBlur = false } = Astro.props;
 const hasActions = Astro.slots.has('default');
 const imageClass = imageBlur
-  ? 'absolute inset-0 size-full scale-110 object-cover object-[center_30%] opacity-50 blur-lg'
+  ? 'absolute inset-0 size-full scale-105 object-cover object-[center_30%] opacity-45 blur-sm'
   : 'absolute inset-0 size-full object-cover object-[center_30%] opacity-70';
 ---
 
@@ -31,7 +31,11 @@ const imageClass = imageBlur
   }
   <div class="grain absolute inset-0"></div>
   <div class={`absolute inset-0 bg-linear-to-b ${image ? 'from-bg/50 via-bg/75' : 'from-bg/30 via-bg/70'} to-bg`}></div>
-  <div class="absolute -right-32 top-10 size-[28rem] rounded-full bg-gold/10 blur-3xl"></div>
+  <!-- Gold glow as a radial gradient: no filter, so it costs nothing to scroll. -->
+  <div
+    class="pointer-events-none absolute -right-32 top-10 size-[28rem] rounded-full bg-[radial-gradient(closest-side,rgba(201,162,39,0.16),transparent)]"
+  >
+  </div>
 
   <div class="container-x relative pb-16 pt-36 sm:pb-24 sm:pt-44">
     {eyebrow && <p class="eyebrow" data-reveal>{eyebrow}</p>}

@@ -40,14 +40,12 @@ const rows: { id: string; title: string; subtitle?: string; items: Title[]; wide
 
   <div class="relative -mt-6 pb-10">
     {
-      rows.map((row, i) => (
-        <div data-reveal style={`--reveal-delay: ${Math.min(i, 3) * 60}ms`}>
-          <PosterRow id={row.id} title={row.title} subtitle={row.subtitle}>
-            {row.items.map((t) => (
-              <PosterCard title={t} wide={row.wide} />
-            ))}
-          </PosterRow>
-        </div>
+      rows.map((row) => (
+        <PosterRow id={row.id} title={row.title} subtitle={row.subtitle}>
+          {row.items.map((t) => (
+            <PosterCard title={t} wide={row.wide} />
+          ))}
+        </PosterRow>
       ))
     }
   </div>

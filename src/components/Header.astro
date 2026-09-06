@@ -71,14 +71,13 @@ const path = Astro.url.pathname;
   header {
     transition:
       background-color 300ms,
-      border-color 300ms,
-      backdrop-filter 300ms;
+      border-color 300ms;
   }
   header.is-solid {
     background-color: color-mix(in oklab, var(--color-bg) 86%, transparent);
     border-color: var(--color-border);
-    backdrop-filter: blur(14px);
-    -webkit-backdrop-filter: blur(14px);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
   }
   #mobile-menu {
     background-color: color-mix(in oklab, var(--color-bg) 96%, transparent);
