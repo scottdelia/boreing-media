@@ -66,3 +66,11 @@ All copy that changes often is in `src/data/`:
 ## Follow-ups
 
 Custom domain, a real form backend, an Open Graph image, approved photography and logos, analytics.
+
+## Images
+
+No image files live in this repo. Everything is hotlinked from its source and swaps out by editing one URL in `src/data/`.
+
+- **Episode thumbnails and watch links** come from the Jeremy Boreing YouTube channel (`youtubeId` in `episodes.ts`). The channel id is `UCGHtep7hxIpz2D6RAQ8Kp0g`; its public feed is `https://www.youtube.com/feeds/videos.xml?channel_id=UCGHtep7hxIpz2D6RAQ8Kp0g`.
+- **Show artwork** is the official cover art served by Apple Podcasts (`showArtwork` in `episodes.ts`).
+- **Film and TV posters and stills** are hotlinked from [TMDB](https://www.themoviedb.org) (`poster`, `backdrop`, `tmdb` in `titles.ts`). This site uses TMDB images but is not endorsed or certified by TMDB. The artwork belongs to the studios that made the titles; replace it with approved key art before any official use.

@@ -5,7 +5,7 @@ import SectionHeading from '../components/SectionHeading.astro';
 import PosterCard from '../components/PosterCard.astro';
 import TitleModal from '../components/TitleModal.astro';
 import CTA from '../components/CTA.astro';
-import { titles } from '../data/titles';
+import { titles, featuredTitle } from '../data/titles';
 
 const credits = [...titles].sort((a, b) => b.year - a.year);
 
@@ -32,6 +32,7 @@ const lookingFor = [
     title="Stories with real production values."
     lead="Features, documentaries, series, and kids programming from the producer who built an entertainment studio inside a news company."
     palette="poster-steel"
+    image={featuredTitle.backdrop}
   >
     <a href="#credits" class="btn btn-primary">See the credits</a>
     <a href="#pitch" class="btn btn-outline">Pitch the studio</a>
@@ -43,15 +44,19 @@ const lookingFor = [
       title="A decade of work."
       lead="Selected film and television credits of founder Jeremy Boreing, produced during his tenure at The Daily Wire. Shown as a portfolio."
     />
-    <div class="mt-12 grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-5" data-reveal>
+    <ul class="mt-12 grid grid-cols-2 gap-x-4 gap-y-8 sm:grid-cols-3 lg:grid-cols-5" data-reveal>
       {
         credits.map((t) => (
-          <div class="[&>button]:w-full [&>button]:sm:w-full">
+          <li class="[&>button]:w-full [&>button]:sm:w-full">
             <PosterCard title={t} />
-          </div>
+            <p class="mt-3 text-sm font-semibold leading-snug">{t.title}</p>
+            <p class="mt-0.5 text-xs text-muted">
+              {t.year} &middot; {t.credit}
+            </p>
+          </li>
         ))
       }
-    </div>
+    </ul>
   </section>
 
   <section class="border-t border-border/60 bg-surface/30 py-20 sm:py-28">
@@ -81,8 +86,8 @@ const lookingFor = [
     </div>
   </section>
 
-  <section id="pitch" class="container-x py-20 sm:py-28">
-    <div class="grid gap-12 lg:grid-cols-12">
+  <section id="pitch" class="section-paper py-20 sm:py-28">
+    <div class="container-x grid gap-12 lg:grid-cols-12">
       <div class="lg:col-span-5">
         <SectionHeading
           eyebrow="Submissions"

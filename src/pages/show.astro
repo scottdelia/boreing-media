@@ -5,7 +5,7 @@ import SectionHeading from '../components/SectionHeading.astro';
 import EpisodeCard from '../components/EpisodeCard.astro';
 import PlatformLinks from '../components/PlatformLinks.astro';
 import CTA from '../components/CTA.astro';
-import { episodes, showDescription } from '../data/episodes';
+import { episodes, showDescription, showArtwork, youtubeThumb } from '../data/episodes';
 
 const cadence = [
   { value: 'Weekly', label: 'New episodes every week since March 24, 2026' },
@@ -22,6 +22,7 @@ const topics = ['Culture', 'Politics', 'Tech', 'Business', 'Faith', 'Film & TV']
     title="The conversations everyone is thinking and nobody is saying out loud."
     lead={showDescription}
     palette="poster-wine"
+    image={youtubeThumb(episodes[0].youtubeId)}
   >
     <PlatformLinks />
   </PageHero>
@@ -63,8 +64,8 @@ const topics = ['Culture', 'Politics', 'Tech', 'Business', 'Faith', 'Film & TV']
     </div>
   </section>
 
-  <section class="container-x py-20 sm:py-28">
-    <div class="grid gap-12 lg:grid-cols-12 lg:items-center">
+  <section class="section-paper py-20 sm:py-28">
+    <div class="container-x grid gap-12 lg:grid-cols-12 lg:items-center">
       <div class="lg:col-span-6">
         <SectionHeading
           eyebrow="About the show"
@@ -79,14 +80,19 @@ const topics = ['Culture', 'Politics', 'Tech', 'Business', 'Faith', 'Film & TV']
         </blockquote>
       </div>
       <div class="lg:col-span-6">
-        <div class="poster-wine grain relative aspect-[4/3] overflow-hidden rounded-2xl" data-reveal>
-          <div class="absolute inset-0 bg-linear-to-t from-bg/90 via-bg/20 to-transparent"></div>
-          <div class="absolute inset-x-8 bottom-8">
-            <p class="eyebrow">Now streaming</p>
-            <p class="mt-2 font-display text-4xl leading-none sm:text-5xl">Ep. {episodes[0].number}</p>
-            <p class="mt-3 max-w-sm text-sm text-ink/85">{episodes[0].title}</p>
-          </div>
-        </div>
+        <figure class="mx-auto max-w-md" data-reveal>
+          <img
+            src={showArtwork}
+            alt="The Jeremy Boreing Show cover art"
+            width="600"
+            height="600"
+            loading="lazy"
+            decoding="async"
+            referrerpolicy="no-referrer"
+            class="block w-full rounded-2xl shadow-2xl shadow-black/20"
+          />
+          <figcaption class="mt-3 text-center text-xs text-muted">Official show artwork</figcaption>
+        </figure>
       </div>
     </div>
   </section>

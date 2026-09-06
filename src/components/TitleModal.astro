@@ -8,6 +8,7 @@
   aria-labelledby="modal-title"
 >
   <div data-modal-art class="relative aspect-video overflow-hidden">
+    <img data-modal-img alt="" decoding="async" referrerpolicy="no-referrer" class="absolute inset-0 size-full object-cover" hidden />
     <div class="grain absolute inset-0"></div>
     <div class="absolute inset-0 bg-linear-to-t from-surface via-surface/30 to-transparent"></div>
     <div class="absolute inset-x-6 bottom-5">
@@ -62,6 +63,12 @@
         if (currentPalette) art.classList.remove(currentPalette);
         currentPalette = t.palette || '';
         if (currentPalette) art.classList.add(currentPalette);
+      }
+      const img = dialog.querySelector<HTMLImageElement>('[data-modal-img]');
+      const src = t.backdrop || t.poster || '';
+      if (img) {
+        img.hidden = !src;
+        img.src = src;
       }
       setText('[data-modal-kind]', t.kind ?? '');
       setText('[data-modal-title]', t.title ?? '');

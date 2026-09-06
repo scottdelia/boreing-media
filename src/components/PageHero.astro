@@ -4,14 +4,28 @@ interface Props {
   title: string;
   lead?: string;
   palette?: string;
+  /** Optional 16:9 still shown behind the gradients. */
+  image?: string;
 }
-const { eyebrow, title, lead, palette = 'poster-ink' } = Astro.props;
+const { eyebrow, title, lead, palette = 'poster-ink', image } = Astro.props;
 const hasActions = Astro.slots.has('default');
 ---
 
 <section class={`relative overflow-hidden ${palette}`}>
+  {
+    image && (
+      <img
+        src={image}
+        alt=""
+        decoding="async"
+        fetchpriority="high"
+        referrerpolicy="no-referrer"
+        class="absolute inset-0 size-full object-cover object-[center_30%] opacity-70"
+      />
+    )
+  }
   <div class="grain absolute inset-0"></div>
-  <div class="absolute inset-0 bg-linear-to-b from-bg/30 via-bg/70 to-bg"></div>
+  <div class={`absolute inset-0 bg-linear-to-b ${image ? 'from-bg/50 via-bg/75' : 'from-bg/30 via-bg/70'} to-bg`}></div>
   <div class="absolute -right-32 top-10 size-[28rem] rounded-full bg-gold/10 blur-3xl"></div>
 
   <div class="container-x relative pb-16 pt-36 sm:pb-24 sm:pt-44">

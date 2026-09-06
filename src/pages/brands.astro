@@ -23,7 +23,7 @@ import { brands } from '../data/brands';
     brands.map((b, i) => (
       <section
         id={b.id}
-        class={`py-20 sm:py-28 ${i % 2 === 1 ? 'border-t border-border/60 bg-surface/30' : ''}`}
+        class={`py-20 sm:py-28 ${i % 2 === 1 ? 'section-paper' : ''}`}
         aria-labelledby={`${b.id}-heading`}
       >
         <div class="container-x grid gap-12 lg:grid-cols-12 lg:items-center">

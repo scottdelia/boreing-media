@@ -6,13 +6,25 @@ interface Props {
 }
 const { title: t } = Astro.props;
 const payload = JSON.stringify(t);
+const image = t.backdrop ?? t.poster;
 ---
 
 <section class={`relative overflow-hidden ${t.palette}`} aria-label="Featured title">
+  {
+    image && (
+      <img
+        src={image}
+        alt=""
+        decoding="async"
+        fetchpriority="high"
+        referrerpolicy="no-referrer"
+        class="absolute inset-0 size-full object-cover object-[70%_center]"
+      />
+    )
+  }
   <div class="grain absolute inset-0"></div>
-  <div class="absolute inset-0 bg-linear-to-r from-bg via-bg/55 to-transparent"></div>
-  <div class="absolute inset-0 bg-linear-to-t from-bg via-transparent to-bg/50"></div>
-  <div class="absolute right-[-10%] top-[10%] size-[36rem] rounded-full bg-gold/10 blur-3xl"></div>
+  <div class="absolute inset-0 bg-linear-to-r from-bg via-bg/70 to-bg/10"></div>
+  <div class="absolute inset-0 bg-linear-to-t from-bg via-bg/20 to-bg/40"></div>
 
   <div class="container-x relative flex min-h-[78vh] flex-col justify-end pb-14 pt-40 sm:pb-20">
     <p class="eyebrow" data-reveal>Featured &middot; {t.kind}</p>

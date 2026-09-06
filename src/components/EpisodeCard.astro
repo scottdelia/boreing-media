@@ -1,6 +1,6 @@
 ---
 import type { Episode } from '../data/episodes';
-import { formatDate } from '../data/episodes';
+import { formatDate, youtubeThumb, youtubeThumbFallback, youtubeUrl } from '../data/episodes';
 import { platforms } from '../data/nav';
 
 interface Props {
@@ -8,41 +8,63 @@ interface Props {
 }
 const { episode } = Astro.props;
 const listenHref = platforms.find((p) => p.name === 'Apple Podcasts')?.href ?? '#';
+const watchHref = youtubeUrl(episode.youtubeId);
 const isLive = episode.format === 'LIVE';
 ---
 
-<article class="card card-hover group flex gap-4 p-4 sm:p-5">
-  <div
-    class={`relative grid size-20 shrink-0 place-items-center overflow-hidden rounded-xl ${episode.palette} font-display text-2xl text-ink`}
-    aria-hidden="true"
+<article class="card card-hover group flex flex-col overflow-hidden sm:flex-row">
+  <a
+    href={watchHref}
+    target="_blank"
+    rel="noopener"
+    class={`relative block aspect-video w-full shrink-0 overflow-hidden sm:w-56 ${episode.palette}`}
+    aria-label={`Watch episode ${episode.number} on YouTube`}
   >
-    <span class="grain absolute inset-0"></span>
-    <span class="relative">{episode.number}</span>
-  </div>
-  <div class="min-w-0 flex-1">
+    <img
+      src={youtubeThumb(episode.youtubeId)}
+      alt=""
+      loading="lazy"
+      decoding="async"
+      referrerpolicy="no-referrer"
+      class="absolute inset-0 size-full object-cover transition-transform duration-500 group-hover:scale-105"
+      onerror={youtubeThumbFallback}
+    />
+    <span class="absolute inset-0 bg-linear-to-t from-black/60 via-transparent to-transparent"></span>
+    <span class="absolute left-2 top-2 rounded bg-black/60 px-1.5 py-0.5 font-display text-sm text-white backdrop-blur">
+      Ep. {episode.number}
+    </span>
+    <span class="absolute bottom-2 right-2 rounded bg-black/70 px-1.5 py-0.5 text-[10px] font-semibold text-white">
+      {episode.duration}
+    </span>
+    <span class="absolute inset-0 grid place-items-center opacity-0 transition-opacity duration-300 group-hover:opacity-100">
+      <span class="grid size-11 place-items-center rounded-full bg-white/90 text-black">
+        <svg class="ml-0.5 size-5 fill-current" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5v13l11-6.5z" /></svg>
+      </span>
+    </span>
+  </a>
+
+  <div class="min-w-0 flex-1 p-4 sm:p-5">
     <div class="flex flex-wrap items-center gap-x-2 gap-y-1 text-xs text-muted">
       <span
-        class={`rounded-full px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wider ${isLive ? 'bg-red-500/15 text-red-300' : 'bg-gold/15 text-gold'}`}
+        class={`rounded-full px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wider ${isLive ? 'bg-red-500/15 text-red-400' : 'bg-gold/15 text-gold'}`}
       >
         {isLive ? 'Weds Live' : 'Interview'}
       </span>
       <time datetime={episode.date}>{formatDate(episode.date)}</time>
-      <span aria-hidden="true">&middot;</span>
-      <span>{episode.duration}</span>
     </div>
     <h3 class="mt-2 font-sans text-base font-semibold leading-snug text-ink transition-colors group-hover:text-gold">
-      <span class="text-muted">Ep. {episode.number}:</span> {episode.title}
+      {episode.title}
     </h3>
-    <a
-      href={listenHref}
-      target="_blank"
-      rel="noopener"
-      class="mt-3 inline-flex items-center gap-1.5 text-sm font-medium text-gold"
-    >
-      Listen
-      <svg class="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-        <path d="M7 17L17 7M9 7h8v8" />
-      </svg>
-    </a>
+    <div class="mt-3 flex flex-wrap gap-x-5 gap-y-1 text-sm font-medium">
+      <a href={watchHref} target="_blank" rel="noopener" class="inline-flex items-center gap-1.5 text-gold">
+        Watch on YouTube
+        <svg class="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M7 17L17 7M9 7h8v8" />
+        </svg>
+      </a>
+      <a href={listenHref} target="_blank" rel="noopener" class="inline-flex items-center gap-1.5 text-muted transition-colors hover:text-gold">
+        Listen
+      </a>
+    </div>
   </div>
 </article>

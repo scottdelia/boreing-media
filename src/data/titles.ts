@@ -11,12 +11,23 @@ export interface Title {
   credit: string;
   palette: string;
   featured?: boolean;
+  /** 2:3 key art URL. */
+  poster?: string;
+  /** 16:9 still URL. */
+  backdrop?: string;
+  /** TMDB page path, for attribution and reference. */
+  tmdb?: string;
+}
+
+/** Build a TMDB image URL from a file name. Sizes: w342, w500 (posters), w780, w1280 (backdrops). */
+export function tmdbImg(file: string, size: 'w342' | 'w500' | 'w780' | 'w1280'): string {
+  return `https://image.tmdb.org/t/p/${size}/${file}`;
 }
 
 /**
  * Selected film and television credits of founder Jeremy Boreing.
  * These titles were produced during his tenure at The Daily Wire and are shown
- * here as a portfolio, not as Boreing Media property.
+ * here as a portfolio, not as Boreing Media property. Artwork is hotlinked from TMDB.
  */
 export const titles: Title[] = [
   {
@@ -30,6 +41,9 @@ export const titles: Title[] = [
     credit: 'Co-Director, Executive Producer',
     palette: 'poster-steel',
     featured: true,
+    poster: tmdbImg('jJfk8NXauN4UgFQ1qn9lFzEk7ib.jpg', 'w500'),
+    backdrop: tmdbImg('lDmFwAaHL1kXnAfZeUTieAdUTko.jpg', 'w1280'),
+    tmdb: '/tv/235685-the-pendragon-cycle-rise-of-the-merlin',
   },
   {
     id: 'am-i-racist',
@@ -41,6 +55,9 @@ export const titles: Title[] = [
     meta: '1h 41m',
     credit: 'Executive Producer',
     palette: 'poster-gold',
+    poster: tmdbImg('a0nfgpeRMORStotrouLoOBr00Pc.jpg', 'w500'),
+    backdrop: tmdbImg('vohINT54Cvez6xu2LyGTHYjUe28.jpg', 'w1280'),
+    tmdb: '/movie/1320637-am-i-racist',
   },
   {
     id: 'lady-ballers',
@@ -52,6 +69,9 @@ export const titles: Title[] = [
     meta: 'Feature film',
     credit: 'Director, Writer, Producer',
     palette: 'poster-ember',
+    poster: tmdbImg('2mud8Gr8s7RxNPDQOK7OSFxglyO.jpg', 'w500'),
+    backdrop: tmdbImg('28B8msdMb8yMDTmubYDHONhBcdA.jpg', 'w1280'),
+    tmdb: '/movie/1210646-lady-ballers',
   },
   {
     id: 'terror-on-the-prairie',
@@ -63,6 +83,9 @@ export const titles: Title[] = [
     meta: 'Feature film',
     credit: 'Producer',
     palette: 'poster-moss',
+    poster: tmdbImg('xfwHIY865AYJoFgBAYoAJLvPLO9.jpg', 'w500'),
+    backdrop: tmdbImg('3boseSuFfjTazSrPAe9G6pSDvnH.jpg', 'w1280'),
+    tmdb: '/movie/884315-terror-on-the-prairie',
   },
   {
     id: 'shut-in',
@@ -74,6 +97,9 @@ export const titles: Title[] = [
     meta: 'Feature film',
     credit: 'Executive Producer',
     palette: 'poster-ink',
+    poster: tmdbImg('b5ug4LyLQFeR6azAJyIPBQz5ur9.jpg', 'w500'),
+    backdrop: tmdbImg('ufagam4FwlIcgPqJlr21EshNkNd.jpg', 'w1280'),
+    tmdb: '/movie/629015-shut-in',
   },
   {
     id: 'what-is-a-woman',
@@ -85,6 +111,9 @@ export const titles: Title[] = [
     meta: '1h 35m',
     credit: 'Executive Producer',
     palette: 'poster-wine',
+    poster: tmdbImg('iiP8Sq7yWoYsKx9EVfyRPno8Un9.jpg', 'w500'),
+    backdrop: tmdbImg('rsEoYrFrt8CG7l9q9pls03CyIxS.jpg', 'w1280'),
+    tmdb: '/movie/957258-what-is-a-woman',
   },
   {
     id: 'convicting-a-murderer',
@@ -96,6 +125,9 @@ export const titles: Title[] = [
     meta: '10 episodes',
     credit: 'Executive Producer',
     palette: 'poster-plum',
+    poster: tmdbImg('3gbqsmGfqo7Jdb2Ns8eM1xuRXWF.jpg', 'w500'),
+    backdrop: tmdbImg('wbNqHbnf0MBjwJpjUpdzLKpdQyI.jpg', 'w1280'),
+    tmdb: '/tv/234406-convicting-a-murderer',
   },
   {
     id: 'chip-chilla',
@@ -107,6 +139,9 @@ export const titles: Title[] = [
     meta: 'Animated series',
     credit: 'Executive Producer',
     palette: 'poster-sky',
+    poster: tmdbImg('AhT1pYAyXZWsi1A9CA1dyvTiAY7.jpg', 'w500'),
+    backdrop: tmdbImg('4iDhB6kgz0GaSTIXVhUOF9dyZAn.jpg', 'w1280'),
+    tmdb: '/tv/237369-chip-chilla',
   },
   {
     id: 'mabel-maclay',
@@ -118,17 +153,21 @@ export const titles: Title[] = [
     meta: 'Live-action series',
     credit: 'Executive Producer',
     palette: 'poster-gold',
+    poster: tmdbImg('71cRI00NIkPoTcavzE8nd9bJEfv.jpg', 'w500'),
+    tmdb: '/tv/238097-a-wonderful-day-with-mabel-maclay',
   },
   {
     id: 'gus-plus-us',
     title: 'Gus Plus Us',
-    year: 2023,
+    year: 2022,
     kind: 'Kids',
     tagline: 'Songs, stories, and a very tall friend.',
     blurb: 'A music-driven preschool series built around friendship, kindness, and curiosity.',
     meta: 'Preschool series',
     credit: 'Executive Producer',
     palette: 'poster-moss',
+    poster: tmdbImg('gFPAJVqZuzMaGu8CQKdGX0i9vUK.jpg', 'w500'),
+    tmdb: '/tv/203803-gus-plus-us',
   },
   {
     id: 'the-arroyo',
@@ -140,6 +179,8 @@ export const titles: Title[] = [
     meta: 'Feature film',
     credit: 'Director, Writer, Producer',
     palette: 'poster-ember',
+    poster: tmdbImg('ecllGgfQsUkdBYSbDsFjTQ5wtUn.jpg', 'w500'),
+    tmdb: '/movie/300255-the-arroyo',
   },
 ];
 

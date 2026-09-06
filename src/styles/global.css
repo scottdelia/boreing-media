@@ -180,3 +180,26 @@
     padding-right: 2.5rem;
   }
 }
+
+/* Cream "paper" surface. Re-themes every token inside it, so components need no changes. */
+@layer components {
+  .section-paper {
+    background-color: #f2ecdf;
+    color: #141416;
+    --color-bg: #f2ecdf;
+    --color-surface: #faf6ee;
+    --color-surface-2: #ece4d3;
+    --color-border: #d6cdba;
+    --color-ink: #141416;
+    --color-muted: #625e55;
+    --color-gold: #8a6a10;
+    --color-gold-hover: #a17d14;
+  }
+  .section-paper .grain::after {
+    mix-blend-mode: multiply;
+    opacity: 0.12;
+  }
+  .section-paper .hairline {
+    background: linear-gradient(90deg, transparent, color-mix(in oklab, #8a6a10 60%, transparent), transparent);
+  }
+}
