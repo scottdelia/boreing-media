@@ -35,7 +35,7 @@ export const footerColumns: { heading: string; links: NavLink[] }[] = [
     heading: 'Brands',
     links: [
       { label: "Jeremy's Razors", href: 'https://www.jeremysrazors.com', external: true },
-      { label: "Jeremy's Chocolates", href: 'https://www.jeremyschocolate.com', external: true },
+      { label: "Jeremy's Chocolates", href: 'https://www.jeremysrazors.com/pages/about', external: true },
     ],
   },
 ];
