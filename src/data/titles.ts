@@ -17,6 +17,11 @@ export interface Title {
   backdrop?: string;
   /** TMDB page path, for attribution and reference. */
   tmdb?: string;
+  /** Where the title streams today. Shown in the detail card. */
+  availability?: string;
+  /** Verified link to watch. Turns the Play button into a real link. */
+  watchHref?: string;
+  watchLabel?: string;
 }
 
 /** Build a TMDB image URL from a file name. Sizes: w342, w500 (posters), w780, w1280 (backdrops). */
@@ -25,9 +30,9 @@ export function tmdbImg(file: string, size: 'w342' | 'w500' | 'w780' | 'w1280'):
 }
 
 /**
- * Selected film and television credits of founder Jeremy Boreing.
- * These titles were produced during his tenure at The Daily Wire and are shown
- * here as a portfolio, not as Boreing Media property. Artwork is hotlinked from TMDB.
+ * The film and television work Jeremy Boreing built in the Daily Wire era, shown as founder
+ * credits and as stand-ins for a future Boreing Media slate. Not Boreing Media property.
+ * Artwork is hotlinked from TMDB. Availability as of September 2026.
  */
 export const titles: Title[] = [
   {
@@ -36,14 +41,18 @@ export const titles: Title[] = [
     year: 2026,
     kind: 'Series',
     tagline: 'Before the king, the Merlin.',
-    blurb: "An epic fantasy series adapted from Stephen R. Lawhead's Pendragon Cycle novels, set in the twilight of Roman Britain.",
-    meta: 'Season 1',
-    credit: 'Co-Director, Executive Producer',
+    blurb:
+      "An epic fantasy series adapted from Stephen R. Lawhead's Pendragon Cycle novels, set in the twilight of Roman Britain. Now on Prime Video, where it opened as the No. 1 fantasy series in the U.S. across all streaming services, per TheWrap.",
+    meta: 'Season 1 · 7 episodes',
+    credit: 'Creator, Director, Executive Producer',
     palette: 'poster-steel',
     featured: true,
     poster: tmdbImg('jJfk8NXauN4UgFQ1qn9lFzEk7ib.jpg', 'w500'),
     backdrop: tmdbImg('lDmFwAaHL1kXnAfZeUTieAdUTko.jpg', 'w1280'),
     tmdb: '/tv/235685-the-pendragon-cycle-rise-of-the-merlin',
+    availability: 'Prime Video (U.S., Canada, U.K., Ireland, Spain, Portugal) and DailyWire+',
+    watchHref: 'https://www.amazon.com/dp/B0HFHGFJGG',
+    watchLabel: 'Watch on Prime Video',
   },
   {
     id: 'am-i-racist',
@@ -58,6 +67,7 @@ export const titles: Title[] = [
     poster: tmdbImg('a0nfgpeRMORStotrouLoOBr00Pc.jpg', 'w500'),
     backdrop: tmdbImg('vohINT54Cvez6xu2LyGTHYjUe28.jpg', 'w1280'),
     tmdb: '/movie/1320637-am-i-racist',
+    availability: 'DailyWire+',
   },
   {
     id: 'lady-ballers',
@@ -72,6 +82,7 @@ export const titles: Title[] = [
     poster: tmdbImg('2mud8Gr8s7RxNPDQOK7OSFxglyO.jpg', 'w500'),
     backdrop: tmdbImg('28B8msdMb8yMDTmubYDHONhBcdA.jpg', 'w1280'),
     tmdb: '/movie/1210646-lady-ballers',
+    availability: 'DailyWire+',
   },
   {
     id: 'terror-on-the-prairie',
@@ -86,6 +97,7 @@ export const titles: Title[] = [
     poster: tmdbImg('xfwHIY865AYJoFgBAYoAJLvPLO9.jpg', 'w500'),
     backdrop: tmdbImg('3boseSuFfjTazSrPAe9G6pSDvnH.jpg', 'w1280'),
     tmdb: '/movie/884315-terror-on-the-prairie',
+    availability: 'DailyWire+',
   },
   {
     id: 'shut-in',
@@ -100,6 +112,7 @@ export const titles: Title[] = [
     poster: tmdbImg('b5ug4LyLQFeR6azAJyIPBQz5ur9.jpg', 'w500'),
     backdrop: tmdbImg('ufagam4FwlIcgPqJlr21EshNkNd.jpg', 'w1280'),
     tmdb: '/movie/629015-shut-in',
+    availability: 'DailyWire+',
   },
   {
     id: 'what-is-a-woman',
@@ -114,6 +127,7 @@ export const titles: Title[] = [
     poster: tmdbImg('iiP8Sq7yWoYsKx9EVfyRPno8Un9.jpg', 'w500'),
     backdrop: tmdbImg('rsEoYrFrt8CG7l9q9pls03CyIxS.jpg', 'w1280'),
     tmdb: '/movie/957258-what-is-a-woman',
+    availability: 'DailyWire+',
   },
   {
     id: 'chip-chilla',
@@ -128,6 +142,7 @@ export const titles: Title[] = [
     poster: tmdbImg('AhT1pYAyXZWsi1A9CA1dyvTiAY7.jpg', 'w500'),
     backdrop: tmdbImg('4iDhB6kgz0GaSTIXVhUOF9dyZAn.jpg', 'w1280'),
     tmdb: '/tv/237369-chip-chilla',
+    availability: 'Bentkey',
   },
   {
     id: 'mabel-maclay',
@@ -141,6 +156,7 @@ export const titles: Title[] = [
     palette: 'poster-gold',
     poster: tmdbImg('71cRI00NIkPoTcavzE8nd9bJEfv.jpg', 'w500'),
     tmdb: '/tv/238097-a-wonderful-day-with-mabel-maclay',
+    availability: 'Bentkey',
   },
   {
     id: 'gus-plus-us',
@@ -154,6 +170,7 @@ export const titles: Title[] = [
     palette: 'poster-moss',
     poster: tmdbImg('gFPAJVqZuzMaGu8CQKdGX0i9vUK.jpg', 'w500'),
     tmdb: '/tv/203803-gus-plus-us',
+    availability: 'Bentkey',
   },
   {
     id: 'the-arroyo',
@@ -167,6 +184,7 @@ export const titles: Title[] = [
     palette: 'poster-ember',
     poster: tmdbImg('ecllGgfQsUkdBYSbDsFjTQ5wtUn.jpg', 'w500'),
     tmdb: '/movie/300255-the-arroyo',
+    availability: 'On demand',
   },
 ];
 

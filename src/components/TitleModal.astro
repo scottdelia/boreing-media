@@ -37,10 +37,17 @@
         <dd data-modal-credit class="mt-1 font-medium"></dd>
       </div>
       <div>
-        <dt class="text-muted">Availability</dt>
-        <dd class="mt-1 font-medium">Concept catalog. Not streaming here yet.</dd>
+        <dt class="text-muted">Where to watch</dt>
+        <dd data-modal-availability class="mt-1 font-medium"></dd>
       </div>
     </dl>
+    <div class="mt-6 flex flex-wrap gap-3">
+      <a data-modal-watch href="#" target="_blank" rel="noopener" class="btn btn-primary" hidden>
+        <svg class="size-4 fill-current" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5v13l11-6.5z" /></svg>
+        <span data-modal-watch-label>Watch</span>
+      </a>
+      <form method="dialog"><button type="submit" class="btn btn-outline">Close</button></form>
+    </div>
   </div>
 </dialog>
 
@@ -77,6 +84,13 @@
       setText('[data-modal-tagline]', t.tagline ?? '');
       setText('[data-modal-blurb]', t.blurb ?? '');
       setText('[data-modal-credit]', t.credit ?? '');
+      setText('[data-modal-availability]', t.availability ?? 'Concept catalog. Not streaming here yet.');
+      const watch = dialog.querySelector<HTMLAnchorElement>('[data-modal-watch]');
+      if (watch) {
+        watch.hidden = !t.watchHref;
+        watch.href = t.watchHref || '#';
+        setText('[data-modal-watch-label]', t.watchLabel || 'Watch');
+      }
       dialog.showModal();
     });
 

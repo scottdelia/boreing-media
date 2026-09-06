@@ -7,7 +7,7 @@ import TitleModal from '../components/TitleModal.astro';
 import CTA from '../components/CTA.astro';
 import type { Title } from '../data/titles';
 import { featuredTitle, byKind } from '../data/titles';
-import { episodes, youtubeThumb } from '../data/episodes';
+import { episodes, youtubeThumb, youtubeUrl } from '../data/episodes';
 
 // Recent episodes become catalog entries so they open in the same detail modal.
 const episodeTitles: Title[] = episodes.slice(0, 6).map((e) => ({
@@ -16,11 +16,14 @@ const episodeTitles: Title[] = episodes.slice(0, 6).map((e) => ({
   year: 2026,
   kind: 'Episode',
   tagline: `Episode ${e.number} · ${e.format === 'LIVE' ? 'Wednesday Live' : 'Interview'}`,
-  blurb: `From The Jeremy Boreing Show. Available now on YouTube, Spotify, Apple Podcasts, and Rumble.`,
+  blurb: `From The Jeremy Boreing Show.`,
   meta: e.duration,
   credit: 'Host',
   palette: e.palette,
   backdrop: youtubeThumb(e.youtubeId),
+  availability: 'YouTube, Spotify, Apple Podcasts, and Rumble',
+  watchHref: youtubeUrl(e.youtubeId),
+  watchLabel: 'Watch on YouTube',
 }));
 
 const rows: { id: string; title: string; subtitle?: string; items: Title[]; wide?: boolean }[] = [
