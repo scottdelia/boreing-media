@@ -79,7 +79,7 @@ No image files live in this repo. Everything is hotlinked from its source and sw
 
 ## How this was built
 
-Two working sessions on September 5 and 6, 2026. Scott Delia directed the work: the decision to build a concept, the stack, the page list, the visual direction, the concept framing, and every call on imagery and licensing. Claude Code (Anthropic) did the heavy lifting under that direction: research from public reporting, the code, browser verification of every page at desktop and mobile widths, the GitHub Actions pipeline, and the fixes that followed each review.
+Two sittings on September 5 and 6, 2026, and about an hour of Scott Delia's hands-on time; the AI ran for several hours. Scott directed the work: the decision to build a concept, the stack, the page list, the visual direction, the concept framing, and every call on imagery and licensing. Claude Code (Anthropic) did the heavy lifting under that direction: research from public reporting, the code, browser verification of every page at desktop and mobile widths, the GitHub Actions pipeline, and the fixes that followed each review.
 
 What that looked like in practice:
 
